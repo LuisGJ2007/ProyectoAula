@@ -11,7 +11,7 @@ public class data {
     String informe;
     Boolean estadoDeInforme;
     
-    public informacion(String nombre, String apellido, String correo, int idDeInforme, String informe, Boolean estadoDeInforme) {
+    public data(String nombre, String apellido, String correo, int idDeInforme, String informe, Boolean estadoDeInforme) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
