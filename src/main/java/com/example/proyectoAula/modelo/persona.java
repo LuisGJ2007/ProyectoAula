@@ -1,12 +1,20 @@
 package com.example.proyectoAula.modelo;
 
-public class persona {
-    
-    String nombre;
-    int idCaso;
-    String apellido;
-    String correo;
+import jakarta.persistence.*;
 
-    String telefono;
-    Boolean estadoDeUsuario;
+@Entity
+public class Persona {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idCaso;
+
+    private String nombre;
+    private String apellido;
+    private String correo;
+    private String telefono;
+    private String estadoDeUsuario;
+
+    // TODO: constructor vacío (JPA lo exige)
+    // TODO: getters y setters de cada campo
 }
