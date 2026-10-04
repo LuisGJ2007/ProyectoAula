@@ -1,6 +1,5 @@
 package com.example.proyectoAula.modelo;
 
-
 public class data {
     
     String nombre;
