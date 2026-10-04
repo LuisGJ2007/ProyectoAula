@@ -1,8 +1,7 @@
 package com.example.proyectoAula.modelo;
 
-import java.util.*;
 
-public class informacion {
+public class data {
     
     String nombre;
     String apellido;

@@ -1,6 +1,6 @@
 package com.example.proyectoAula.modelo;
 
-public class usuario {
+public class persona {
     
     String nombre;
     int idCaso;
