@@ -83,7 +83,7 @@ public class informacion {
         }
     }
 
-    List<informacion> listaDeInformes = new ArrayList<>();
+    
     
 }
 
