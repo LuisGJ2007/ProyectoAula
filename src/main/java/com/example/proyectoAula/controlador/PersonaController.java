@@ -1,4 +1,4 @@
-package main.java.com.example.proyectoAula.controlador;
+package com.example.proyectoAula.controlador;
 
 import com.example.proyectoAula.modelo.persona;
 import com.example.proyectoAula.repositorio.personaRepository;

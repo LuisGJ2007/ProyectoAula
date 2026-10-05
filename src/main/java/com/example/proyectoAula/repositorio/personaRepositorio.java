@@ -1,4 +1,4 @@
-package main.java.com.example.proyectoAula.repositorio;
+package com.example.proyectoAula.repositorio;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,4 +10,6 @@ public interface personaRepositorio extends JpaRepository<persona, Long> {
     // TODO (opcional): consultas propias, por ejemplo:
 
 List<Persona> findByEstadoDeUsuario(String estadoDeUsuario);
+    // List<Persona> findByEstadoDeUsuario(String estadoDeUsuario);
+
 }
