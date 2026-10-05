@@ -5,11 +5,11 @@ import com.example.proyectoAula.repositorio.personaRepository;
 
 @RestController
 @RequestMapping("/api/personas")
-public class PersonaController {
+public class personaController {
 
     private final personaRepository repositorio;
 
-    public PersonaController(personaRepository repositorio) {
+    public personaController(personaRepository repositorio) {
         this.repositorio = repositorio;
     }
 

@@ -9,7 +9,7 @@ public interface personaRepositorio extends JpaRepository<persona, Long> {
 
     // TODO (opcional): consultas propias, por ejemplo:
 
-List<Persona> findByEstadoDeUsuario(String estadoDeUsuario);
-    // List<Persona> findByEstadoDeUsuario(String estadoDeUsuario);
+List<persona> findByEstadoDeUsuario(String estadoDeUsuario);
+    // List<persona> findByEstadoDeUsuario(String estadoDeUsuario);
 
 }
