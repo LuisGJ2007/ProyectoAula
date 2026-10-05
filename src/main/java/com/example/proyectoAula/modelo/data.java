@@ -1,6 +1,13 @@
 package com.example.proyectoAula.modelo;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Data {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     
     String nombre;
     String apellido;
