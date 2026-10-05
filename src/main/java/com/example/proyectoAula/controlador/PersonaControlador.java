@@ -11,11 +11,11 @@ import com.example.proyectoAula.repositorio.PersonaRepositorio;
 
 @RestController
 @RequestMapping("/api/personas")
-public class PersonaController {
+public class PersonaControlador {
 
     private final PersonaRepositorio repositorio;
 
-    public PersonaController(PersonaRepositorio repositorio) {
+    public PersonaControlador(PersonaRepositorio repositorio) {
         this.repositorio = repositorio;
     }
 
