@@ -6,5 +6,5 @@ import com.example.proyectoAula.modelo.Universidad;
 
 public interface UniversidadRepositorio extends JpaRepository<Universidad, Long> {
 
-    List<Universidad> findByEstadoDeUsuario(String estadoDeUsuario);
+    List<Universidad> findByNombre(String nombre);
 }

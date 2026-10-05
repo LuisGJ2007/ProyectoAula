@@ -6,5 +6,5 @@ import com.example.proyectoAula.modelo.Data;
 
 public interface DataRepositorio extends JpaRepository<Data, Long> {
 
-    List<Data> findByEstadoDeUsuario(String estadoDeUsuario);
+    List<Data> findByIdDeInforme(int idDeInforme);
 }
