@@ -1,6 +1,6 @@
 package com.example.proyectoAula.modelo;
 
-public class data {
+public class Data {
     
     String nombre;
     String apellido;
@@ -10,7 +10,7 @@ public class data {
     String informe;
     Boolean estadoDeInforme;
     
-    public data(String nombre, String apellido, String correo, int idDeInforme, String informe, Boolean estadoDeInforme) {
+    public Data(String nombre, String apellido, String correo, int idDeInforme, String informe, Boolean estadoDeInforme) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;

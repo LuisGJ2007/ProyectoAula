@@ -3,17 +3,17 @@ package com.example.proyectoAula.modelo;
 import jakarta.persistence.*;
 
 @Entity
-public class universidad {
+public class Universidad {
     
     private String nombre;
     private String municipio;
     private String correoInstitucional;
     private String telefonoDeInstitucion;
 
-    public universidad() {
+    public Universidad() {
     }
 
-    public universidad(String nombre, String municipio, String correoInstitucional, String telefonoDeInstitucion) {
+    public Universidad(String nombre, String municipio, String correoInstitucional, String telefonoDeInstitucion) {
         this.nombre = nombre;
         this.municipio = municipio;
         this.correoInstitucional = correoInstitucional;

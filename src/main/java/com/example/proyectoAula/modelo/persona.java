@@ -3,11 +3,11 @@ package com.example.proyectoAula.modelo;
 import jakarta.persistence.*;
 
 @Entity
-public class persona {
+public class Persona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCaso;
+    private Long id;
 
     private String nombre;
     private String apellido;
@@ -15,10 +15,10 @@ public class persona {
     private String telefono;
     private String estadoDeUsuario;
 
-    public persona() {
+    public Persona() {
     }
 
-    public persona(String nombre, String apellido, String correo, String telefono, String estadoDeUsuario) {
+    public Persona(String nombre, String apellido, String correo, String telefono, String estadoDeUsuario) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.correo = correo;
@@ -26,12 +26,12 @@ public class persona {
         this.estadoDeUsuario = estadoDeUsuario;
     }
 
-    public Long getIdCaso() {
-        return idCaso;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdCaso(Long idCaso) {
-        this.idCaso = idCaso;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNombre() {
