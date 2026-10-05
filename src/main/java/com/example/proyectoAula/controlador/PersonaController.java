@@ -1,15 +1,16 @@
 package com.example.proyectoAula.controlador;
 
 import com.example.proyectoAula.modelo.persona;
-import com.example.proyectoAula.repositorio.personaRepository;
+import com.example.proyectoAula.repositorio.personaRepositorio;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/personas")
 public class personaController {
 
-    private final personaRepository repositorio;
+    private final personaRepositorio repositorio;
 
-    public personaController(personaRepository repositorio) {
+    public personaController(personaRepositorio repositorio) {
         this.repositorio = repositorio;
     }
 
