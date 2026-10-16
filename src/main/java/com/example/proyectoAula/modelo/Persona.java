@@ -1,5 +1,7 @@
 package com.example.proyectoAula.modelo;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -72,6 +74,18 @@ public class Persona {
 
     public void setEstadoDeUsuario(String estadoDeUsuario) {
         this.estadoDeUsuario = estadoDeUsuario;
+    }
+
+    @GetMapping("/prueba")
+    public Persona personaDePrueba() {
+        Persona p = new Persona();
+        p.setId(1L);
+        p.setNombre("Juan");
+        p.setApellido("Pérez");
+        p.setCorreo("juan.perez@example.com");
+        p.setTelefono("123-456-7890");
+        p.setEstadoDeUsuario("Activo");
+        return p;
     }
 
 }
