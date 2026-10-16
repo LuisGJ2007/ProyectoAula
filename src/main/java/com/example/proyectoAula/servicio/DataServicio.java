@@ -35,6 +35,25 @@ public class DataServicio {
         if (data.getIdDeInforme() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idDeInforme no puede ser cero");
         }
+        else if (data.getIdDeInforme() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idDeInforme no puede ser negativo");
+        }
+        else if (data.getNombre() == null || data.getNombre().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre no puede estar vacío");
+        }
+        else if (data.getApellido() == null || data.getApellido().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El apellido no puede estar vacío");
+        }
+        else if (data.getCorreo() == null || data.getCorreo().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El correo no puede estar vacío");
+        }
+        else if (data.getInforme() == null || data.getInforme().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El informe no puede estar vacío");
+        }
+        else if (data.getEstadoDeInforme() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El estadoDeInforme no puede ser nulo");
+        }
+        
         return repositorio.save(data);
     }
 
