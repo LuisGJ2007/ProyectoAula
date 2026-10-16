@@ -22,22 +22,26 @@ public class UniversidadServicio {
         return repositorio.findAll();
     }
 
-    public Universidad obtener(Long id) {
-        return repositorio.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada"));
+    public Universidad obtener(String correoInstitucional) {
+        List<Universidad> universidades = repositorio.findByCorreoInstitucional(correoInstitucional);
+        if (universidades.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada");
+        }
+        return universidades.get(0);
     }
 
     public Universidad crear(Universidad universidad) {
         return repositorio.save(universidad);
     }
 
-    public Universidad actualizar(Long id, Universidad datos) {
-        Universidad universidad = obtener(id);
+    public Universidad actualizar(String correoInstitucional, Universidad datos) {
+        Universidad universidad = obtener(correoInstitucional);
         return repositorio.save(universidad);
     }
 
-    public void eliminar(Long id) {
-        Universidad universidad = obtener(id);
+    public void eliminar(String correoInstitucional) {
+        Universidad universidad = obtener(correoInstitucional);
         repositorio.delete(universidad);
     }
+
 }
