@@ -7,4 +7,7 @@ import com.example.proyectoAula.modelo.Data;
 public interface DataRepositorio extends JpaRepository<Data, Long> {
 
     List<Data> findByIdDeInforme(int idDeInforme);
+
+    List<Data> findByEstadoDeInforme(Boolean estadoDeInforme);
+
 }
