@@ -20,23 +20,19 @@ public class PersonaServicio {
 
     public List<Persona> listar() {
         return repositorio.findAll();
-        // TODO
     }
 
     public Persona obtener(Long id) {
         return repositorio.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona no encontrada"));
-        // TODO: buscar y lanzar ResponseStatusException 404 si no existe
     }
 
     public Persona crear(Persona persona) {
-        // TODO: aquí va tu regla de negocio antes de guardar
         return repositorio.save(persona);
     }
 
     public Persona actualizar(Long id, Persona datos) {
         Persona persona = obtener(id);
-        // TODO: actualizar los campos de la persona con los datos proporcionados
         return repositorio.save(persona);
     }
 
