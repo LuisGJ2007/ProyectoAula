@@ -6,5 +6,7 @@ import com.example.proyectoAula.modelo.Universidad;
 
 public interface UniversidadRepositorio extends JpaRepository<Universidad, Long> {
 
-    List<Universidad> findByNombre(String nombre);
+    List<Universidad> findByCorreoInstitucional(String correoInstitucional);
+
+    boolean existsByCorreoInstitucional(String correoInstitucional);
 }
