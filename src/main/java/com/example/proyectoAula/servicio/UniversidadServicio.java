@@ -18,4 +18,26 @@ public class UniversidadServicio {
         this.repositorio = repositorio;
     }
 
+    public List<Universidad> listar() {
+        return repositorio.findAll();
+    }
+
+    public Universidad obtener(Long id) {
+        return repositorio.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada"));
+    }
+
+    public Universidad crear(Universidad universidad) {
+        return repositorio.save(universidad);
+    }
+
+    public Universidad actualizar(Long id, Universidad datos) {
+        Universidad universidad = obtener(id);
+        return repositorio.save(universidad);
+    }
+
+    public void eliminar(Long id) {
+        Universidad universidad = obtener(id);
+        repositorio.delete(universidad);
+    }
 }
