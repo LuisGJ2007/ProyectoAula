@@ -7,4 +7,7 @@ import com.example.proyectoAula.modelo.Persona;
 public interface PersonaRepositorio extends JpaRepository<Persona, Long> {
 
     List<Persona> findByEstadoDeUsuario(String estadoDeUsuario);
+
+    boolean existsByCorreo(String correo);
+
 }
