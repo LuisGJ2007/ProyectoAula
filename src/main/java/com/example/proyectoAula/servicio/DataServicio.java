@@ -27,7 +27,14 @@ public class DataServicio {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Data no encontrada"));
     }
 
+    public List<Data> obtenerPorIdDeInforme(int idDeInforme) {
+        return repositorio.findByIdDeInforme(idDeInforme);
+    }
+
     public Data crear(Data data) {
+        if (data.getIdDeInforme() == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idDeInforme no puede ser cero");
+        }
         return repositorio.save(data);
     }
 
