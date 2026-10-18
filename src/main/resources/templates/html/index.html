@@ -8,6 +8,82 @@
     
 </head>
 <body>
-    
+  <header>
+    <div class="encabezado">
+      <h1>Estrés y ansiedad en estudiantes</h1>
+      <p th:text="Proyecto académico | Tecnológico Comfenalco - Sede Desarrollo">Proyecto académico</p>
+    </div>
+    <nav aria-label="Menú principal">
+      <a href="#inicio">Inicio</a>
+      <a href="#proyecto">Proyecto</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#encuesta">Encuesta</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="bienvenida">
+      <div>
+        <span class="etiqueta">Investigación estudiantil · 2025</span>
+        <h2>¿Cómo afecta el estrés a nuestra vida universitaria?</h2>
+        <p>En este proyecto queremos conocer las situaciones que generan estrés y ansiedad en los estudiantes, cómo afectan sus estudios y qué estrategias utilizan para sentirse mejor.</p>
+        <a class="boton" href="#proyecto">Conocer el proyecto</a>
+      </div>
+      
+    </section>
+
+    <section id="proyecto" class="seccion">
+      <h2>Sobre nuestro proyecto</h2>
+      <p>Muchos estudiantes deben cumplir con trabajos, exámenes y responsabilidades personales. Algunos también trabajan mientras estudian. Nuestro propósito es explorar cómo estas situaciones se relacionan con el estrés y la ansiedad en la comunidad estudiantil.</p>
+      <div class="tarjetas">
+        <article class="tarjeta"><h3>Objetivo</h3><p>Identificar las principales causas del estrés y la ansiedad y conocer cómo pueden afectar el rendimiento académico.</p></article>
+        <article class="tarjeta"><h3>Metodología</h3><p>Proponemos realizar encuestas voluntarias y anónimas a estudiantes para conocer sus experiencias.</p></article>
+        <article class="tarjeta"><h3>¿Para qué?</h3><p>Comprender las necesidades de los estudiantes y plantear ideas que contribuyan a su bienestar.</p></article>
+      </div>
+    </section>
+
+    <section class="seccion fondo-claro">
+      <h2>Posibles causas del estrés</h2>
+      <div class="causas">
+        <div><strong>Carga académica</strong><p>Acumulación de trabajos, exposiciones y exámenes.</p></div>
+        <div><strong>Estudio y trabajo</strong><p>Dificultad para organizar los horarios y descansar.</p></div>
+        <div><strong>Situación económica</strong><p>Preocupaciones relacionadas con los gastos educativos y personales.</p></div>
+        <div><strong>Vida personal</strong><p>Responsabilidades familiares y situaciones personales.</p></div>
+      </div>
+    </section>
+
+    <section id="resultados" class="seccion">
+      <h2>Resultados de ejemplo</h2>
+      <p>Para ilustrar cómo se presentarían los resultados, usamos una <strong>simulación de 100 estudiantes</strong>. Estos datos son ficticios y no corresponden a encuestas reales ni a cifras oficiales de la universidad.</p>
+      <h3>Nivel de estrés percibido (simulado)</h3>
+      <div class="grafica">
+        <div class="barra-fila"><span>Alto</span><div class="pista"><div class="barra alto" style="width:42%"></div></div><strong>42%</strong></div>
+        <div class="barra-fila"><span>Moderado</span><div class="pista"><div class="barra moderado" style="width:38%"></div></div><strong>38%</strong></div>
+        <div class="barra-fila"><span>Bajo</span><div class="pista"><div class="barra bajo" style="width:20%"></div></div><strong>20%</strong></div>
+      </div>
+      <h3>Principales factores (simulados)</h3>
+      <div class="tabla-contenedor"><table><thead><tr><th>Factor</th><th>Porcentaje</th></tr></thead><tbody><tr><td>Exámenes y trabajos</td><td>35%</td></tr><tr><td>Combinar estudio y trabajo</td><td>30%</td></tr><tr><td>Problemas económicos</td><td>20%</td></tr><tr><td>Problemas personales y familiares</td><td>15%</td></tr></tbody></table></div>
+    </section>
+
+    <section id="encuesta" class="seccion fondo-claro">
+      <h2>Encuesta de ejemplo</h2>
+      <p>Responde estas tres preguntas para conocer cómo funciona nuestra propuesta de encuesta. <strong>Tus respuestas solo se muestran en esta página; no se envían ni se guardan.</strong></p>
+      <form id="formulario">
+        <fieldset><legend>1. ¿Con qué frecuencia sientes estrés por tus estudios?</legend><label><input type="radio" name="frecuencia" value="Nunca" required> Nunca</label><label><input type="radio" name="frecuencia" value="A veces"> A veces</label><label><input type="radio" name="frecuencia" value="Frecuentemente"> Frecuentemente</label><label><input type="radio" name="frecuencia" value="Siempre"> Siempre</label></fieldset>
+        <fieldset><legend>2. ¿Qué situación te genera más estrés?</legend><label><input type="radio" name="causa" value="Trabajos y exámenes" required> Trabajos y exámenes</label><label><input type="radio" name="causa" value="Estudiar y trabajar"> Estudiar y trabajar</label><label><input type="radio" name="causa" value="Situación económica"> Situación económica</label><label><input type="radio" name="causa" value="Situaciones personales"> Situaciones personales</label></fieldset>
+        <fieldset><legend>3. ¿Consideras que el estrés afecta tu rendimiento académico?</legend><label><input type="radio" name="rendimiento" value="Sí" required> Sí</label><label><input type="radio" name="rendimiento" value="No"> No</label><label><input type="radio" name="rendimiento" value="No estoy seguro/a"> No estoy seguro/a</label></fieldset>
+        <button class="boton" type="submit">Ver mis respuestas</button>
+        <button class="boton secundario" type="reset">Limpiar</button>
+      </form>
+      <div id="respuesta" class="respuesta" role="status" aria-live="polite" hidden></div>
+    </section>
+
+    <section class="seccion">
+      <h2>Conclusión</h2>
+      <p>Investigar el estrés y la ansiedad nos permite comprender mejor las dificultades que pueden enfrentar los estudiantes. Con una encuesta real, esperamos identificar necesidades y proponer acciones para fortalecer el bienestar estudiantil.</p>
+    </section>
+  </main>
+  <footer><p>Proyecto académico · Tecnológico Comfenalco · 2025</p><p>Datos estadísticos de ejemplo, no oficiales.</p></footer>
+  <script src="script.js"></script>
 </body>
 </html>
