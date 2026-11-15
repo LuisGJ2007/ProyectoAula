@@ -31,12 +31,12 @@ public class DataServicio {
         return repositorio.findByIdDeInforme(idDeInforme);
     }
 
-    public Data crear(Data data) {
-        if (data.getIdDeInforme() == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idDeInforme no puede ser cero");
+    private void validar(Data data) {
+        if (data.getId() == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El id no puede ser cero");
         }
-        else if (data.getIdDeInforme() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El idDeInforme no puede ser negativo");
+        else if (data.getId() < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El id no puede ser negativo");
         }
         else if (data.getNombre() == null || data.getNombre().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre no puede estar vacío");
@@ -53,12 +53,21 @@ public class DataServicio {
         else if (data.getEstadoDeInforme() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El estadoDeInforme no puede ser nulo");
         }
-        
+    }
+    public Data crear(Data data) {
+        validar(data);
         return repositorio.save(data);
     }
 
     public Data actualizar(Long id, Data datos) {
+        validar(datos);
         Data data = obtener(id);
+        data.setIdDeInforme(datos.getIdDeInforme());
+        data.setNombre(datos.getNombre());
+        data.setApellido(datos.getApellido());
+        data.setCorreo(datos.getCorreo());
+        data.setInforme(datos.getInforme());
+        data.setEstadoDeInforme(datos.getEstadoDeInforme());
         return repositorio.save(data);
     }
 

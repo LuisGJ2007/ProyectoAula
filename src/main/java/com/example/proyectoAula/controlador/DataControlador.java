@@ -1,56 +1,59 @@
 package com.example.proyectoAula.controlador;
 
-import java.util.List;
-
-import com.example.proyectoAula.modelo.Persona;
-import com.example.proyectoAula.repositorio.PersonaRepositorio;
-
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@RestController
-@RequestMapping("/api/data")
-public class DataControlador {
-    
-    private final PersonaRepositorio repositorio;
+import com.example.proyectoAula.modelo.Data;
+import com.example.proyectoAula.servicio.DataServicio;
 
-    public DataControlador(PersonaRepositorio repositorio) {
-        this.repositorio = repositorio;
+@Controller
+@RequestMapping("/data")
+public class DataControlador {
+
+    private final DataServicio servicio;
+
+    public DataControlador(DataServicio servicio) {
+        this.servicio = servicio;
     }
 
     @GetMapping
-    public List<Persona> listar() {
-        return repositorio.findAll();
+    public String listar(Model model) {
+        model.addAttribute("informes", servicio.listar());
+        return "html/data/lista";
     }
 
-    @GetMapping("/{id}")
-    public Persona obtener(@PathVariable Long id) {
-        return repositorio.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona no encontrada"));
+    @GetMapping("/nuevo")
+    public String formularioNuevo(Model model) {
+        model.addAttribute("data", new Data());
+        return "html/data/formulario";
     }
 
-    @PostMapping
-    public Persona crear(@RequestBody Persona persona) {
-        return repositorio.save(persona);
+    @GetMapping("/editar/{id}")
+    public String formularioEditar(@PathVariable Long id, Model model) {
+        model.addAttribute("data", servicio.obtener(id));
+        return "html/data/formulario";
     }
 
-    @PutMapping("/{id}")
-    public Persona actualizar(@PathVariable Long id, @RequestBody Persona datos) {
-        Persona existente = obtener(id);
-        existente.setNombre(datos.getNombre());
-        existente.setApellido(datos.getApellido());
-        existente.setCorreo(datos.getCorreo());
-        existente.setTelefono(datos.getTelefono());
-        existente.setEstadoDeUsuario(datos.getEstadoDeUsuario());
-        return repositorio.save(existente);
-    }
-
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        if (!repositorio.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Persona no encontrada");
+    @PostMapping("/guardar")
+    public String guardar(@ModelAttribute Data data, Model model) {
+        try {
+            if (data.getId() == null) {
+                servicio.crear(data);
+            } else {
+                servicio.actualizar(data.getId(), data);
+            }
+            return "redirect:/data";
+        } catch (ResponseStatusException e) {
+            model.addAttribute("error", e.getReason());
+            return "html/data/formulario";
         }
-        repositorio.deleteById(id);
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable Long id) {
+        servicio.eliminar(id);
+        return "redirect:/data";
     }
 }

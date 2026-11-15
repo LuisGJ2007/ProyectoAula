@@ -9,13 +9,16 @@ public class Data {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    String nombre;
-    String apellido;
-    String correo;
-    int idDeInforme;
+    private String nombre;
+    private String apellido;
+    private String correo;
+    private int idDeInforme;
 
-    String informe;
-    Boolean estadoDeInforme;
+    private String informe;
+    private Boolean estadoDeInforme;
+
+    public Data() {
+    }
     
     public Data(String nombre, String apellido, String correo, int idDeInforme, String informe, Boolean estadoDeInforme) {
         this.nombre = nombre;
@@ -24,6 +27,14 @@ public class Data {
         this.idDeInforme = idDeInforme;
         this.informe = informe;
         this.estadoDeInforme = estadoDeInforme;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getIdDeInforme() {

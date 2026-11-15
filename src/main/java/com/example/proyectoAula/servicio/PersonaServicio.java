@@ -32,9 +32,14 @@ public class PersonaServicio {
     }
 
     public Persona actualizar(Long id, Persona datos) {
-        Persona persona = obtener(id);
-        return repositorio.save(persona);
-    }
+    Persona persona = obtener(id);
+    persona.setNombre(datos.getNombre());
+    persona.setApellido(datos.getApellido());
+    persona.setCorreo(datos.getCorreo());
+    persona.setTelefono(datos.getTelefono());
+    persona.setEstadoDeUsuario(datos.getEstadoDeUsuario());
+    return repositorio.save(persona);
+}
 
     public void eliminar(Long id) {
         Persona persona = obtener(id);
