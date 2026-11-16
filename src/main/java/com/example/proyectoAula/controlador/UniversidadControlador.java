@@ -1,56 +1,71 @@
 package com.example.proyectoAula.controlador;
 
-import java.util.List;
 
 import com.example.proyectoAula.modelo.Universidad;
-import com.example.proyectoAula.repositorio.UniversidadRepositorio;
+import com.example.proyectoAula.servicio.*;
 
-import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@RestController
-@RequestMapping("/api/universidad")
+@Controller
+@RequestMapping("/universidades")
 public class UniversidadControlador {
     
-    private final UniversidadRepositorio repositorio;
+    private final UniversidadServicio servicio;
 
-    public UniversidadControlador(UniversidadRepositorio repositorio) {
-        this.repositorio = repositorio;
+    public UniversidadControlador(UniversidadServicio servicio) {
+        this.servicio = servicio;
     }
 
     @GetMapping
-    public List<Universidad> listar() {
-        return repositorio.findAll();
+    public String listar(Model model) {
+        model.addAttribute("universidades", servicio.listar());
+        return "html/universidades/lista";
     }
 
-    @GetMapping("/{id}")
-    public Universidad obtener(@PathVariable Long id) {
-        return repositorio.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada"));
+    @GetMapping("/nueva")
+    public String formularioNueva(Model model) {
+        model.addAttribute("universidad", new Universidad());
+        model.addAttribute("modoEdicion", false);
+        return "html/universidades/formulario";
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Universidad crear(@RequestBody Universidad universidad) {
-        return repositorio.save(universidad);
+    @GetMapping("/editar")
+    public String formularioEditar(@RequestParam String correoInstitucional, Model model) {
+        model.addAttribute("universidad", servicio.obtener(correoInstitucional));
+        model.addAttribute("modoEdicion", true);
+        return "html/universidades/formulario";
     }
 
-    @PutMapping("/{id}")
-    public Universidad actualizar(@PathVariable Long id, @RequestBody Universidad datos) {
-        Universidad existente = obtener(id);
-        existente.setNombre(datos.getNombre());
-        existente.setCorreoInstitucional(datos.getCorreoInstitucional());
-        existente.setTelefonoDeInstitucion(datos.getTelefonoDeInstitucion());
-        existente.setMunicipio(datos.getMunicipio());
-        return repositorio.save(existente);
-    }
-
-    @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
-        if (!repositorio.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada");
+    @PostMapping("/crear")
+    public String crear(@ModelAttribute Universidad universidad, Model model) {
+        try {
+            servicio.crear(universidad);
+            return "redirect:/universidades";
+        } catch (ResponseStatusException e) {
+            model.addAttribute("error", e.getReason());
+            model.addAttribute("modoEdicion", false);
+            return "html/universidades/formulario";
         }
-        repositorio.deleteById(id);
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizar(@ModelAttribute Universidad universidad, Model model) {
+        try {
+            servicio.actualizar(universidad.getCorreoInstitucional(), universidad);
+            return "redirect:/universidades";
+        } catch (ResponseStatusException e) {
+            model.addAttribute("error", e.getReason());
+            model.addAttribute("modoEdicion", true);
+            return "html/universidades/formulario";
+        }
+    }
+
+    @GetMapping("/eliminar")
+    public String eliminar(@RequestParam String correo) {
+        servicio.eliminar(correo);
+        return "redirect:/universidades";
     }
 }

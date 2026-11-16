@@ -6,12 +6,12 @@ import jakarta.persistence.*;
 public class Universidad {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String correoInstitucional;
     
     private String nombre;
     private String municipio;
-    private String correoInstitucional;
+
+    @Column(unique = true)
     private String telefonoDeInstitucion;
 
     public Universidad() {

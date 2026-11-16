@@ -4,9 +4,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.proyectoAula.modelo.Universidad;
 
-public interface UniversidadRepositorio extends JpaRepository<Universidad, Long> {
+public interface UniversidadRepositorio extends JpaRepository<Universidad, String> {
+    List<Universidad> findByNombre(String nombre);
 
-    List<Universidad> findByCorreoInstitucional(String correoInstitucional);
+    List<Universidad> findByMunicipio(String municipio);
 
-    boolean existsByCorreoInstitucional(String correoInstitucional);
+    List<Universidad> findByTelefonoDeInstitucion(String telefonoDeInstitucion);
 }

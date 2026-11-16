@@ -23,25 +23,45 @@ public class UniversidadServicio {
     }
 
     public Universidad obtener(String correoInstitucional) {
-        List<Universidad> universidades = repositorio.findByCorreoInstitucional(correoInstitucional);
-        if (universidades.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada");
+        return repositorio.findById(correoInstitucional)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Universidad no encontrada"));
+    }
+
+    private void validar(Universidad universidad) {
+        if (universidad.getNombre() == null || universidad.getNombre().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre no puede estar vacío");
         }
-        return universidades.get(0);
+        if (universidad.getCorreoInstitucional() == null || universidad.getCorreoInstitucional().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El correo institucional no puede estar vacío");
+        }
+        if (universidad.getMunicipio() == null || universidad.getMunicipio().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El municipio no puede estar vacío");
+        }
+        if (universidad.getTelefonoDeInstitucion() == null || universidad.getTelefonoDeInstitucion().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El teléfono de la institución no puede estar vacío");
+        }
     }
 
     public Universidad crear(Universidad universidad) {
+        validar(universidad);
+        if (repositorio.existsById(universidad.getCorreoInstitucional())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Ya existe una universidad con ese correo");
+        }
         return repositorio.save(universidad);
     }
 
     public Universidad actualizar(String correoInstitucional, Universidad datos) {
-        Universidad universidad = obtener(correoInstitucional);
-        return repositorio.save(universidad);
+        validar(datos);
+        Universidad existente = obtener(correoInstitucional);
+        existente.setNombre(datos.getNombre());
+        existente.setMunicipio(datos.getMunicipio());
+        existente.setTelefonoDeInstitucion(datos.getTelefonoDeInstitucion());
+        return repositorio.save(existente);
     }
 
     public void eliminar(String correoInstitucional) {
-        Universidad universidad = obtener(correoInstitucional);
-        repositorio.delete(universidad);
+        repositorio.delete(obtener(correoInstitucional));
+        
     }
 
 }
