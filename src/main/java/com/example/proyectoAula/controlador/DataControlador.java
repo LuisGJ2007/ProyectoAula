@@ -21,19 +21,19 @@ public class DataControlador {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("informes", servicio.listar());
-        return "html/data/lista";
+        return "html/listas/Datalista";
     }
 
     @GetMapping("/nuevo")
     public String formularioNuevo(Model model) {
         model.addAttribute("data", new Data());
-        return "html/data/formulario";
+        return "html/formularios/Dataformulario";
     }
 
     @GetMapping("/editar/{id}")
     public String formularioEditar(@PathVariable Long id, Model model) {
         model.addAttribute("data", servicio.obtener(id));
-        return "html/data/formulario";
+        return "html/formularios/Dataformulario";
     }
 
     @PostMapping("/guardar")
@@ -47,7 +47,7 @@ public class DataControlador {
             return "redirect:/data";
         } catch (ResponseStatusException e) {
             model.addAttribute("error", e.getReason());
-            return "html/data/formulario";
+            return "html/formularios/Dataformulario";
         }
     }
 
