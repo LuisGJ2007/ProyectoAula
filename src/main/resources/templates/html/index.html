@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Inicio')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2>Bienvenido</h2>
+    <p>Proyecto académico sobre el estrés y la ansiedad en estudiantes.</p>
+    <div class="tarjetas">
+      <a class="tarjeta" th:href="@{/personas}"><h3>Personas</h3><p>Estudiantes registrados</p></a>
+      <a class="tarjeta" th:href="@{/universidades}"><h3>Universidades</h3><p>Instituciones asociadas</p></a>
+      <a class="tarjeta" th:href="@{/data}"><h3>Informes</h3><p>Seguimiento de informes</p></a>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>
