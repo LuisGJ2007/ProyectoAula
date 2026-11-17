@@ -22,21 +22,21 @@ public class UniversidadControlador {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("universidades", servicio.listar());
-        return "html/universidades/lista";
+        return "html/listas/Universidadlista";
     }
 
     @GetMapping("/nueva")
     public String formularioNueva(Model model) {
         model.addAttribute("universidad", new Universidad());
         model.addAttribute("modoEdicion", false);
-        return "html/universidades/formulario";
+        return "html/formularios/Universidadformulario";
     }
 
     @GetMapping("/editar")
     public String formularioEditar(@RequestParam String correoInstitucional, Model model) {
         model.addAttribute("universidad", servicio.obtener(correoInstitucional));
         model.addAttribute("modoEdicion", true);
-        return "html/universidades/formulario";
+        return "html/formularios/Universidadformulario";
     }
 
     @PostMapping("/crear")
@@ -47,7 +47,7 @@ public class UniversidadControlador {
         } catch (ResponseStatusException e) {
             model.addAttribute("error", e.getReason());
             model.addAttribute("modoEdicion", false);
-            return "html/universidades/formulario";
+            return "html/formularios/Universidadformulario";
         }
     }
 
@@ -59,7 +59,7 @@ public class UniversidadControlador {
         } catch (ResponseStatusException e) {
             model.addAttribute("error", e.getReason());
             model.addAttribute("modoEdicion", true);
-            return "html/universidades/formulario";
+            return "html/formularios/Universidadformulario";
         }
     }
 
