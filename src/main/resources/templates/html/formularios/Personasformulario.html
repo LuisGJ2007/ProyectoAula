@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Persona')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2 th:text="${persona.id == null} ? 'Nueva persona' : 'Editar persona'">Persona</h2>
+
+    <form class="formulario" th:action="@{/personas/guardar}" th:object="${persona}" method="post">
+      <input type="hidden" th:field="*{id}">
+
+      <label>Nombre
+        <input type="text" th:field="*{nombre}" required>
+      </label>
+      <label>Apellido
+        <input type="text" th:field="*{apellido}" required>
+      </label>
+      <label>Correo
+        <input type="email" th:field="*{correo}" required>
+      </label>
+      <label>Teléfono
+        <input type="text" th:field="*{telefono}">
+      </label>
+      <label>Estado de usuario
+        <select th:field="*{estadoDeUsuario}">
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </label>
+
+      <div class="acciones">
+        <button type="submit">Guardar</button>
+        <a class="boton secundario" th:href="@{/personas}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>
