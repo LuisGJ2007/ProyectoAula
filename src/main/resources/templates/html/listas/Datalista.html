@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Informes')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2>Informes</h2>
+    <a class="boton" th:href="@{/data/nuevo}">Agregar informe</a>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>ID informe</th><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Informe</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="i : ${informes}">
+            <td th:text="${i.idDeInforme}"></td>
+            <td th:text="${i.nombre}"></td>
+            <td th:text="${i.apellido}"></td>
+            <td th:text="${i.correo}"></td>
+            <td th:text="${i.informe}"></td>
+            <td>
+              <span class="etiqueta ok" th:if="${i.estadoDeInforme}">Resuelto</span>
+              <span class="etiqueta pendiente" th:unless="${i.estadoDeInforme}">En desarrollo</span>
+            </td>
+            <td>
+              <a th:href="@{/data/editar/{id}(id=${i.id})}">Editar</a>
+              <a class="peligro" th:href="@{/data/eliminar/{id}(id=${i.id})}"
+                 onclick="return confirm('¿Eliminar este informe?')">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="vacio" th:if="${#lists.isEmpty(informes)}">No hay registros.</p>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>

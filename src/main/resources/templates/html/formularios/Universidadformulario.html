@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Universidad')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2 th:text="${modoEdicion} ? 'Editar universidad' : 'Nueva universidad'">Universidad</h2>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form class="formulario" th:object="${universidad}" method="post"
+          th:action="${modoEdicion} ? @{/universidades/actualizar} : @{/universidades/crear}">
+
+      <label>Correo institucional
+        <input type="email" th:field="*{correoInstitucional}" th:readonly="${modoEdicion}" required>
+      </label>
+      <label>Nombre
+        <input type="text" th:field="*{nombre}" required>
+      </label>
+      <label>Municipio
+        <input type="text" th:field="*{municipio}" required>
+      </label>
+      <label>Teléfono de la institución
+        <input type="text" th:field="*{telefonoDeInstitucion}" required>
+      </label>
+
+      <div class="acciones">
+        <button type="submit">Guardar</button>
+        <a class="boton secundario" th:href="@{/universidades}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>

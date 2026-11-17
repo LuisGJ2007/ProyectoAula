@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Universidades')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2>Universidades</h2>
+    <a class="boton" th:href="@{/universidades/nueva}">Agregar universidad</a>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Municipio</th><th>Correo institucional</th><th>Teléfono</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="u : ${universidades}">
+            <td th:text="${u.nombre}"></td>
+            <td th:text="${u.municipio}"></td>
+            <td th:text="${u.correoInstitucional}"></td>
+            <td th:text="${u.telefonoDeInstitucion}"></td>
+            <td>
+              <a th:href="@{/universidades/editar(correoInstitucional=${u.correoInstitucional})}">Editar</a>
+              <a class="peligro" th:href="@{/universidades/eliminar(correo=${u.correoInstitucional})}"
+                 onclick="return confirm('¿Eliminar esta universidad?')">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="vacio" th:if="${#lists.isEmpty(universidades)}">No hay registros.</p>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>

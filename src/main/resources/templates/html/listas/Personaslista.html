@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Personas')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2>Personas</h2>
+    <a class="boton" th:href="@{/personas/nueva}">Agregar persona</a>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Apellido</th><th>Correo</th><th>Teléfono</th><th>Estado</th><th>Acciones</th></tr>
+        </thead>
+        <tbody>
+          <tr th:each="p : ${personas}">
+            <td th:text="${p.nombre}"></td>
+            <td th:text="${p.apellido}"></td>
+            <td th:text="${p.correo}"></td>
+            <td th:text="${p.telefono}"></td>
+            <td th:text="${p.estadoDeUsuario}"></td>
+            <td>
+              <a th:href="@{/personas/editar/{id}(id=${p.id})}">Editar</a>
+              <a class="peligro" th:href="@{/personas/eliminar/{id}(id=${p.id})}"
+                 onclick="return confirm('¿Eliminar esta persona?')">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="vacio" th:if="${#lists.isEmpty(personas)}">No hay registros.</p>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>
