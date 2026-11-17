@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Informe')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2 th:text="${data.id == null} ? 'Nuevo informe' : 'Editar informe'">Informe</h2>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form class="formulario" th:action="@{/data/guardar}" th:object="${data}" method="post">
+      <input type="hidden" th:field="*{id}">
+
+      <label>ID del informe
+        <input type="number" th:field="*{idDeInforme}" min="1" required>
+      </label>
+      <label>Nombre
+        <input type="text" th:field="*{nombre}" required>
+      </label>
+      <label>Apellido
+        <input type="text" th:field="*{apellido}" required>
+      </label>
+      <label>Correo
+        <input type="email" th:field="*{correo}" required>
+      </label>
+      <label>Informe
+        <textarea th:field="*{informe}" rows="5" required></textarea>
+      </label>
+      <label>Estado del informe
+        <select th:field="*{estadoDeInforme}">
+          <option value="false">En desarrollo</option>
+          <option value="true">Resuelto</option>
+        </select>
+      </label>
+
+      <div class="acciones">
+        <button type="submit">Guardar</button>
+        <a class="boton secundario" th:href="@{/data}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>
