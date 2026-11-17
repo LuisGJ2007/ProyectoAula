@@ -21,13 +21,13 @@ public class PersonaControlador {
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("personas", servicio.listar());
-        return "html/personas/listas";
+        return "html/listas/Personaslista";
     }
 
     @GetMapping("/nueva")
     public String formularioNueva(Model model) {
         model.addAttribute("persona", new Persona());
-        return "html/personas/formulario";
+        return "html/formularios/Personasformulario";
     }
 
     @PostMapping("/guardar")
@@ -43,12 +43,12 @@ public class PersonaControlador {
     @GetMapping("/editar/{id}")
     public String formularioEditar(@PathVariable Long id, Model model) {
         model.addAttribute("persona", servicio.obtener(id));
-        return "html/personas/formulario";
+        return "html/formularios/Personasformulario";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
-        
+        servicio.eliminar(id);
         return "redirect:/personas";
     }
 }
