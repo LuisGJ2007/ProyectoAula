@@ -11,7 +11,7 @@ import com.example.proyectoAula.repositorio.DataRepositorio;
 
 @Service
 public class DataServicio {
-    
+
     private final DataRepositorio repositorio;
 
     public DataServicio(DataRepositorio repositorio) {
@@ -32,11 +32,10 @@ public class DataServicio {
     }
 
     private void validar(Data data) {
-        if (data.getId() == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El id no puede ser cero");
-        }
-        else if (data.getId() < 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El id no puede ser negativo");
+        // Antes se validaba getId(), que es null al crear un informe nuevo y causaba un error 500.
+        // Lo que se debe validar es el ID del informe que escribe el usuario.
+        if (data.getIdDeInforme() <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El ID del informe debe ser mayor que cero");
         }
         else if (data.getNombre() == null || data.getNombre().isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre no puede estar vacío");
@@ -54,6 +53,7 @@ public class DataServicio {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El estadoDeInforme no puede ser nulo");
         }
     }
+
     public Data crear(Data data) {
         validar(data);
         return repositorio.save(data);
@@ -75,5 +75,5 @@ public class DataServicio {
         Data data = obtener(id);
         repositorio.delete(data);
     }
-    
+
 }

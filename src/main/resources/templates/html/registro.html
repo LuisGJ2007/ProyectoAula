@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Registro')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2 style="text-align:center;">Crear cuenta</h2>
+    <p style="text-align:center; color:var(--muted); margin-top:-.25rem;">
+      Completa tus datos para registrarte.
+    </p>
+
+    <p class="error" th:if="${error}" th:text="${error}" role="alert"></p>
+    <p class="error" id="aviso-clave" style="display:none;" role="alert">
+      Las contraseñas no coinciden.
+    </p>
+
+    <form class="formulario-acceso" id="form-registro" th:action="@{/registro}" method="post">
+      <label>
+        Nombre
+        <input type="text" name="nombre" placeholder="Tu nombre"
+               autocomplete="name" autofocus required>
+      </label>
+
+      <label>
+        Correo electrónico
+        <input type="email" name="correo" placeholder="tucorreo@ejemplo.com"
+               autocomplete="email" required>
+      </label>
+
+      <label>
+        Contraseña
+        <input type="password" name="contrasena" id="contrasena" placeholder="Mínimo 4 caracteres"
+               autocomplete="new-password" minlength="4" required>
+      </label>
+
+      <label>
+        Confirmar contraseña
+        <input type="password" id="confirmar" placeholder="Repite la contraseña"
+               autocomplete="new-password" required>
+      </label>
+
+      <button type="submit">Registrarme</button>
+
+      <p style="text-align:center; color:var(--muted);">
+        ¿Ya tienes cuenta? <a th:href="@{/login}">Inicia sesión</a>
+      </p>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+
+<script>
+  document.getElementById('form-registro').addEventListener('submit', function (e) {
+    var aviso = document.getElementById('aviso-clave');
+    if (document.getElementById('contrasena').value !== document.getElementById('confirmar').value) {
+      e.preventDefault();
+      aviso.style.display = 'block';
+    } else {
+      aviso.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

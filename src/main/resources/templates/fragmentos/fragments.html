@@ -1,24 +1,71 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head th:fragment="cabeza(titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title th:text="${titulo} + ' | Estrés y ansiedad'">Título</title>
-    <link rel="stylesheet" th:href="@{../../static/css/estilos.css}">
+
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
+
 <body>
+
     <header th:fragment="encabezado">
-        <h1>Estrés y ansiedad en estudiantes</h1>
+
+        <div class="barra-superior">
+
+            <div>
+                <span
+                    th:if="${session.nombreUsuario != null}"
+                    style="display:block; font-size:.9rem; font-weight:600; color:#e0e7ff; margin-bottom:.2rem;">
+                    Hola, <span th:text="${session.nombreUsuario}" style="display:inline; color:#fff;"></span>
+                </span>
+
+                <h1>Estrés y ansiedad en estudiantes</h1>
+            </div>
+
+            <div class="usuario">
+
+                <a
+                    th:if="${session.usuarioId == null}"
+                    th:href="@{/login}">
+                    Iniciar sesión
+                </a>
+
+                <a
+                    th:if="${session.usuarioId == null}"
+                    th:href="@{/registro}">
+                    Registrarse
+                </a>
+
+                <form
+                    th:if="${session.usuarioId != null}"
+                    th:action="@{/logout}"
+                    method="post">
+
+                    <button type="submit">Cerrar sesión</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
         <nav>
             <a th:href="@{/}">Inicio</a>
             <a th:href="@{/personas}">Personas</a>
             <a th:href="@{/universidades}">Universidades</a>
             <a th:href="@{/data}">Informes</a>
         </nav>
+
     </header>
 
     <footer th:fragment="pie">
         <p>Proyecto académico · Tecnológico Comfenalco</p>
     </footer>
+
 </body>
 </html>

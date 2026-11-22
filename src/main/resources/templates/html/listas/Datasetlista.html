@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dataset de encuestas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+        h1 { margin-bottom: 4px; }
+        form { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin: 16px 0; }
+        label { display: flex; flex-direction: column; font-size: 14px; gap: 4px; }
+        select { padding: 6px 8px; min-width: 200px; }
+        button, .limpiar { padding: 8px 14px; border: 0; border-radius: 4px; cursor: pointer;
+                           background: #2563eb; color: #fff; text-decoration: none; font-size: 14px; }
+        .limpiar { background: #6b7280; }
+        .tabla { overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; font-size: 14px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: #f3f4f6; }
+        tr:nth-child(even) td { background: #fafafa; }
+        .vacio { padding: 16px; color: #6b7280; }
+    </style>
+</head>
+<body>
+    <a href="/">← Inicio</a>
+    <h1>Dataset de encuestas</h1>
+    <p>Total de registros: <strong th:text="${total}">0</strong></p>
+
+    <form method="get" th:action="@{/dataset}">
+        <label>Universidad
+            <select name="universidad">
+                <option value="">Todas</option>
+                <option th:each="u : ${universidades}" th:value="${u}" th:text="${u}"
+                        th:selected="${u == universidadSel}"></option>
+            </select>
+        </label>
+        <label>Carrera / programa
+            <select name="programa">
+                <option value="">Todas</option>
+                <option th:each="p : ${programas}" th:value="${p}" th:text="${p}"
+                        th:selected="${p == programaSel}"></option>
+            </select>
+        </label>
+        <label>Semestre
+            <select name="semestre">
+                <option value="">Todos</option>
+                <option th:each="s : ${semestres}" th:value="${s}" th:text="${s}"
+                        th:selected="${semestreSel != null and s == semestreSel}"></option>
+            </select>
+        </label>
+        <button type="submit">Filtrar</button>
+        <a class="limpiar" th:href="@{/dataset}">Limpiar</a>
+    </form>
+
+    <div class="tabla">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Universidad</th>
+                    <th>Programa</th>
+                    <th>Semestre</th>
+                    <th>Situación laboral</th>
+                    <th>Frecuencia de estrés</th>
+                    <th>Horas de sueño</th>
+                    <th>Concentración</th>
+                    <th>Comentario</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${registros}">
+                    <td th:text="${r.codigo}"></td>
+                    <td th:text="${r.universidad}"></td>
+                    <td th:text="${r.programaAcademico}"></td>
+                    <td th:text="${r.semestre}"></td>
+                    <td th:text="${r.situacionLaboral}"></td>
+                    <td th:text="${r.frecuenciaEstres}"></td>
+                    <td th:text="${r.horasSueno}"></td>
+                    <td th:text="${r.nivelConcentracion}"></td>
+                    <td th:text="${r.comentario}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="vacio" th:if="${#lists.isEmpty(registros)}">No hay registros con esos filtros.</p>
+    </div>
+</body>
+</html>
