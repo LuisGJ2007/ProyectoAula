@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Encuestas')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2>Respuestas de la encuesta</h2>
+    <p>Total de registros: <strong th:text="${total}">0</strong></p>
+
+    <a class="boton" th:href="@{/encuesta/nueva}">Agregar respuesta</a>
+
+    <form method="get" th:action="@{/encuesta}"
+          style="display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; margin:16px 0;">
+      <label>Frecuencia de estrés
+        <select name="frecuencia">
+          <option value="">Todas</option>
+          <option th:each="f : ${frecuencias}" th:value="${f}" th:text="${f}"
+                  th:selected="${f == frecuenciaSel}"></option>
+        </select>
+      </label>
+      <label>Semestre
+        <select name="semestre">
+          <option value="">Todos</option>
+          <option th:each="s : ${semestres}" th:value="${s}" th:text="${s}"
+                  th:selected="${semestreSel != null and s == semestreSel}"></option>
+        </select>
+      </label>
+      <button type="submit">Filtrar</button>
+      <a class="boton secundario" th:href="@{/encuesta}">Limpiar</a>
+    </form>
+
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Universidad</th>
+            <th>Programa</th>
+            <th>Semestre</th>
+            <th>Situación laboral</th>
+            <th>Frecuencia de estrés</th>
+            <th>Horas de sueño</th>
+            <th>Concentración</th>
+            <th>Carga académica</th>
+            <th>Comentario</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="r : ${respuestas}">
+            <td th:text="${r.codigo}"></td>
+            <td th:text="${r.universidad}"></td>
+            <td th:text="${r.programaAcademico}"></td>
+            <td th:text="${r.semestre}"></td>
+            <td th:text="${r.situacionLaboral}"></td>
+            <td th:text="${r.frecuenciaEstres}"></td>
+            <td th:text="${r.horasSueno}"></td>
+            <td th:text="${r.nivelConcentracion}"></td>
+            <td th:text="${r.cargaAcademica}"></td>
+            <td th:text="${r.comentario}"></td>
+            <td>
+              <a th:href="@{/encuesta/editar(codigo=${r.codigo})}">Editar</a>
+              <a class="peligro" th:href="@{/encuesta/eliminar(codigo=${r.codigo})}"
+                 onclick="return confirm('¿Eliminar esta respuesta?')">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="vacio" th:if="${#lists.isEmpty(respuestas)}">No hay registros.</p>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>

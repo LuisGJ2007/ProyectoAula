@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos/fragments :: cabeza('Encuesta')}"></head>
+<body>
+<header th:replace="~{fragmentos/fragments :: encabezado}"></header>
+
+<main>
+  <section>
+    <h2 th:text="${modoEdicion} ? 'Editar respuesta' : 'Nueva respuesta'">Respuesta</h2>
+
+    <p class="error" th:if="${error}" th:text="${error}"></p>
+
+    <form class="formulario" th:object="${respuesta}" method="post"
+          th:action="${modoEdicion} ? @{/encuesta/actualizar} : @{/encuesta/crear}">
+
+      <!-- En edición el código viaja oculto: el controlador lo necesita para actualizar -->
+      <input type="hidden" th:field="*{codigo}" th:if="${modoEdicion}">
+
+      <label th:if="${modoEdicion}">Código
+        <input type="text" th:value="${respuesta.codigo}" readonly>
+      </label>
+
+      <label>Universidad
+        <input type="text" th:field="*{universidad}" required>
+      </label>
+
+      <label>Programa académico
+        <select th:field="*{programaAcademico}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${programas}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Semestre
+        <select th:field="*{semestre}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${semestresOpc}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Situación laboral
+        <select th:field="*{situacionLaboral}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${situaciones}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Frecuencia de estrés
+        <select th:field="*{frecuenciaEstres}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${frecuencias}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Horas de sueño
+        <select th:field="*{horasSueno}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${sueno}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Nivel de concentración
+        <select th:field="*{nivelConcentracion}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${concentraciones}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Apoyo emocional percibido
+        <select th:field="*{apoyoEmocional}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${apoyos}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Estrategia para manejar el estrés
+        <select th:field="*{estrategiaEstres}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${estrategias}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Satisfacción con bienestar universitario
+        <select th:field="*{satisfaccionBienestar}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${satisfacciones}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>¿El estrés afecta tu rendimiento?
+        <select th:field="*{estresAfectaRendimiento}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${rendimientos}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>¿Has considerado buscar apoyo psicológico?
+        <select th:field="*{consideroApoyoPsicologico}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${psicologicos}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>¿Qué tan manejable es tu carga académica?
+        <select th:field="*{cargaAcademica}" required>
+          <option value="">Selecciona...</option>
+          <option th:each="o : ${cargas}" th:value="${o}" th:text="${o}"></option>
+        </select>
+      </label>
+
+      <label>Comentario (máximo 500 caracteres)
+        <textarea th:field="*{comentario}" rows="4" maxlength="500"></textarea>
+      </label>
+
+      <div class="acciones">
+        <button type="submit">Guardar</button>
+        <a class="boton secundario" th:href="@{/encuesta}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragmentos/fragments :: pie}"></footer>
+</body>
+</html>
